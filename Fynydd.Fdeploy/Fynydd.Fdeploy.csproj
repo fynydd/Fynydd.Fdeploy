@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <AssemblyVersion>1.2.5.0</AssemblyVersion>
+        <FileVersion>1.2.5.0</FileVersion>
+        <PackageVersion>1.2.5</PackageVersion>
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>fdeploy</ToolCommandName>
+        <PackageOutputPath>./nupkg</PackageOutputPath>
+        <PackageId>fynydd.fdeploy</PackageId>
+        <Authors>Fynydd LLC</Authors>
+        <Company>Fynydd Unlimited, Ltd.</Company>
+        <PackageTags>ASP.NET;Deployment;Deploy;CLI;SMB;SMB2;SMB3</PackageTags>
+        <Description>
+            Fdeploy is a CLI tool for performing SMB file-copy based deployments of ASP.NET web applications (Razor, Blazor, etc.).
+
+            Install dotnet 8 from https://dotnet.microsoft.com/en-us/download and then install Fdeploy with the following command:
+
+            dotnet tool install --global fynydd.fdeploy
+        </Description>
+        <Copyright>Copyright (c) Fynydd LLC 2024.</Copyright>
+        <PackageProjectUrl>https://github.com/fynydd/Fynydd.Fdeploy</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/fynydd/Fynydd.Deploy</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageReleaseNotes>Added settings for clean and purge project</PackageReleaseNotes>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageIcon>fdeploy-icon.png</PackageIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CliWrap" Version="3.6.6" />
+      <PackageReference Include="SMBLibrary" Version="1.5.1.3" />
+      <PackageReference Include="YamlDotNet" Version="15.1.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="html\**" Exclude="**\.DS_Store">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Pack>true</Pack>
+            <PackagePath>contentFiles\any\any\html\</PackagePath>
+        </None>
+        <None Include="yaml\**" Exclude="**\.DS_Store">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Pack>true</Pack>
+            <PackagePath>contentFiles\any\any\yaml\</PackagePath>
+        </None>
+        <None Include="README.md" Pack="true" PackagePath="" />
+        <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+        <None Include="fdeploy-icon.png" Pack="true" PackagePath="" />
+    </ItemGroup>
+    
+</Project>

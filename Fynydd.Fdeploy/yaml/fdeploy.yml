@@ -1,0 +1,130 @@
+# Fdeploy Reference Configuration
+# ===============================
+# Configuration files must be named `fdeploy.yml` or `fdeploy-{name}.yml` so fdeploy can call a configuration by its name
+# (e.g. fdeploy production). You should create files for each deployment target.
+# ALL PATHS (EXCEPT REMOTE ROOT) ARE RELATIVE TO THE WEB APP ROOT
+
+# Delete destination files and folders that are not published; default is true
+DeleteOrphans: true
+
+# During deployment take the server offline using a file named app_offline.htm; default is true
+TakeServerOffline: true
+
+# Seconds to wait after taking the server offline; default is 0
+ServerOfflineDelaySeconds: 0
+
+# Seconds to wait before bringing the server online; default is 0
+ServerOnlineDelaySeconds: 0
+
+# Seconds to wait after a failed write; default is 10
+WriteRetryDelaySeconds: 10
+
+# Number of attempts to write before giving up; default is 10
+RetryCount: 10
+
+# Number of parallel network requests; default is the number of logical processors
+MaxThreadCount: 5
+
+# When deploying changed files only update files with older dates; default is true
+CompareFileDates: true
+
+# When deploying changed files only update files with different file sizes; default is true
+CompareFileSizes: true
+
+# Before publishing the project execute a dotnet clean
+CleanProject: true
+
+# Before publishing the project, delete and recreate the bin and obj folders
+PurgeProject: true
+
+Project:
+
+    # Project file (.csproj) path and filename, relative to the location of this file
+    ProjectFilePath: UmbracoCms.csproj
+
+    # .NET version to target; default is 8.0
+    TargetFramework: 8.0
+
+    # Environment name; default is "Production"
+    EnvironmentName: Production
+
+    # Configuration; default is "Release"
+    BuildConfiguration: Release
+    
+    # Copy specific files into the published build folder; paths are relative to the root path;
+    # processed without ignore rules
+    CopyFilesToPublishFolder:
+        - "umbraco/Data/Umbraco.sqlite.db"
+
+    # Copy specific folders into the published build folder; paths are relative to the root path;
+    # processed without ignore rules
+    CopyFoldersToPublishFolder:
+        - "umbraco/Data/TEMP"
+        - "wwwroot/media"
+
+ServerConnection:
+    
+    ServerAddress: 127.0.0.1
+    ShareName: D$
+    
+    # Connection and authentication timeout ms; default is 15000
+    ConnectTimeoutMs: 15000
+
+    # Response timeout ms; default is 15000
+    ResponseTimeoutMs: 15000
+
+    # Remote path to the root of the website without the share name
+    RemoteRootPath: "\\web\\website.com\\www"
+
+Paths:
+
+    # Paths to folders that can be copied while the server is running;
+    # folders are copied before the server is taken offline which shortens server downtime;
+    OnlineCopyFolderPaths:
+        - "wwwroot"
+
+    # Paths to files that can be copied while the server is running;
+    # files are copied before the server is taken offline which shortens server downtime;
+    OnlineCopyFilePaths:
+        - "backup/backup.sqlite.db"
+
+    # Files in these paths will always be overwritten even if timestamps and size match;
+    # does not recurse;
+    # use a tilde character by itself to match the website root
+    AlwaysOverwritePaths:
+        - "~"
+
+    # Files in these paths will always be overwritten even if timestamps and size match;
+    # recurses subdirectories;
+    # use a tilde character by itself to match the website root
+    AlwaysOverwritePathsWithRecurse:
+        - "umbraco/Data"
+
+    # Ignore the following relative file paths;
+    # applies to safe copies, orphan deletion, and the primary file deployment
+    IgnoreFilePaths:
+        - "web.config"
+
+    # Ignore the following relative folder paths;
+    # applies to safe copies, orphan deletion, and the primary file deployment
+    IgnoreFolderPaths:
+        - "wwwroot/umbraco"
+        - "wwwroot/media"
+
+    # Ignore all files with the following names;
+    # applies to safe copies, orphan deletion, and the primary file deployment
+    IgnoreFilesNamed:
+        - ".DS_Store"
+        - "thumbs.db"
+
+    # Ignore all folders with the following names;
+    # applies to safe copies, orphan deletion, and the primary file deployment
+    IgnoreFoldersNamed:
+        - "Log"
+        - "Logs"
+
+Offline:
+    
+    MetaTitle: "Unavailable for Maintenance"
+    PageTitle: "Unavailable for Maintenance"
+    ContentHtml: "<p>The website is being updated and should be available shortly.</p><p><strong>Check back soon!</strong></p>"
