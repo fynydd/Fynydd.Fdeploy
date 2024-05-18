@@ -44,6 +44,8 @@ namespace Fynydd.Fdeploy.ConsoleBusy
 
         public ConsoleColor? Color { get; set; } = color;
         public string Text { get; set; } = text;
+        public string OriginalText { get; set; } = text;
+        public string RootText => Text.IndexOf("...", StringComparison.Ordinal) > 0 ? Text[..Text.IndexOf("...", StringComparison.Ordinal)] : Text; 
 
         private static Pattern DefaultPattern =>
             ConsoleHelper.ShouldFallback
@@ -54,8 +56,6 @@ namespace Fynydd.Fdeploy.ConsoleBusy
             ConsoleHelper.ShouldFallback
                 ? _fallbackPattern
                 : _pattern;
-
-        /* isatty */
 
         public void Start()
         {
@@ -185,7 +185,7 @@ namespace Fynydd.Fdeploy.ConsoleBusy
 
         public void Succeed(string? text = null)
         {
-            Stop(text, ConsoleHelper.ShouldFallback ? SymbolSucceed.Fallback : SymbolSucceed.Default, ConsoleColor.Green);
+            Stop(text, ConsoleHelper.ShouldFallback ? SymbolSucceed.Fallback : SymbolSucceed.Default, ConsoleColor.DarkGreen);
         }
 
         public void Fail(string? text = null)
@@ -195,7 +195,7 @@ namespace Fynydd.Fdeploy.ConsoleBusy
 
         public void Warn(string? text = null)
         {
-            Stop(text, ConsoleHelper.ShouldFallback ? SymbolWarn.Fallback : SymbolWarn.Default, ConsoleColor.Yellow);
+            Stop(text, ConsoleHelper.ShouldFallback ? SymbolWarn.Fallback : SymbolWarn.Default, ConsoleColor.DarkYellow);
         }
 
         public void Info(string? text = null)

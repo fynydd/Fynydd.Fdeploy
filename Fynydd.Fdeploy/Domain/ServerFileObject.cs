@@ -1,3 +1,5 @@
+using Fynydd.Fdeploy.Domain;
+
 namespace Fynydd.Fdeploy.Domain;
 
 public sealed class ServerFileObject: FileObject
