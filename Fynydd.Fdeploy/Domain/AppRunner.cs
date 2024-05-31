@@ -1036,7 +1036,7 @@ public sealed class AppRunner
 
             if (AppState.Settings.DeleteOrphans)
             {
-                await Spinner.StartAsync("Indexing server files...", async spinner =>
+                await Spinner.StartAsync("Indexing server files for cleanup...", async spinner =>
                 {
                     Timer.Restart();
                     AppState.CurrentSpinner = spinner;
