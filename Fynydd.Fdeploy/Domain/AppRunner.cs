@@ -157,7 +157,7 @@ public sealed class AppRunner
 
         #region Normalize Paths
 
-        AppState.PublishPath = $"{AppState.ProjectPath}{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}publish";
+        AppState.PublishPath = $"{AppState.ProjectPath}{Path.DirectorySeparatorChar}{AppState.Settings.Paths.PublishPath.SetNativePathSeparators()}";
         AppState.ProjectBinPath = $"{AppState.ProjectPath}{Path.DirectorySeparatorChar}bin";
         AppState.ProjectObjPath = $"{AppState.ProjectPath}{Path.DirectorySeparatorChar}obj";
         AppState.TrimmablePublishPath = AppState.PublishPath.MakeRelativePath();
@@ -476,7 +476,7 @@ public sealed class AppRunner
                     Timer.Restart();
 
                     var cmd = Cli.Wrap("dotnet")
-                        .WithArguments(new [] { "clean", $"{AppState.ProjectPath}{Path.DirectorySeparatorChar}{AppState.Settings.Project.ProjectFilePath}" })
+                        .WithArguments(["clean", $"{AppState.ProjectPath}{Path.DirectorySeparatorChar}{AppState.Settings.Project.ProjectFilePath}"])
                         .WithStandardOutputPipe(PipeTarget.ToStringBuilder(sb))
                         .WithStandardErrorPipe(PipeTarget.Null);
                     
@@ -612,8 +612,16 @@ public sealed class AppRunner
             {
                 Timer.Restart();
 
+                var additionalParams = AppState.Settings.Project.PublishParameters.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList();
+                var cliParams = new List<string>
+                {
+                    "publish", "--framework", $"net{AppState.Settings.Project.TargetFramework:N1}", $"{AppState.ProjectPath}{Path.DirectorySeparatorChar}{AppState.Settings.Project.ProjectFilePath}", "-c", AppState.Settings.Project.BuildConfiguration, "-o", AppState.PublishPath, $"/p:EnvironmentName={AppState.Settings.Project.EnvironmentName}"
+                };
+
+                cliParams.AddRange(additionalParams);
+
                 var cmd = Cli.Wrap("dotnet")
-                    .WithArguments(new [] { "publish", "--framework", $"net{AppState.Settings.Project.TargetFramework:N1}", $"{AppState.ProjectPath}{Path.DirectorySeparatorChar}{AppState.Settings.Project.ProjectFilePath}", "-c", AppState.Settings.Project.BuildConfiguration, "-o", AppState.PublishPath, $"/p:EnvironmentName={AppState.Settings.Project.EnvironmentName}" })
+                    .WithArguments(cliParams)
                     .WithStandardOutputPipe(PipeTarget.ToStringBuilder(sb))
                     .WithStandardErrorPipe(PipeTarget.Null);
 		    
