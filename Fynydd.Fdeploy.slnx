@@ -1,0 +1,6 @@
+﻿<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+  </Configurations>
+  <Project Path="Fynydd.Fdeploy\Fynydd.Fdeploy.csproj" Type="Classic C#" />
+</Solution>
