@@ -1,4 +1,4 @@
-using Fynydd.Fdeploy.ConsoleBusy;
+using Spectre.Console;
 
 namespace Fynydd.Fdeploy.Domain;
 
@@ -18,7 +18,7 @@ public sealed class AppState
     public Settings Settings { get; set; } = new();
     public List<string> Exceptions { get; set; } = [];
     public CancellationTokenSource CancellationTokenSource { get; set; } = new();
-    public Spinner? CurrentSpinner { get; set; }
+    public StatusContext? CurrentSpinner { get; set; }
     public ConcurrentBag<LocalFileObject> LocalFiles { get; set; } = [];
     public ConcurrentBag<ServerFileObject> ServerFiles { get; set; } = [];
 }

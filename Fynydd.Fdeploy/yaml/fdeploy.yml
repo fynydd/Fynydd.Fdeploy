@@ -62,7 +62,7 @@ Project:
 
     # Additional publish parameters; default is ""
     PublishParameters: ""
-
+    
     # Copy specific files into the published build folder; paths are relative to the root path;
     # processed without ignore rules
     CopyFilesToPublishFolder:
@@ -93,7 +93,7 @@ Paths:
     # Path for the temporary published project;
     # defaults to "bin/publish" in the current working directory
     PublishPath: "bin/publish"
-    
+
     # Paths to folders that can be copied while the server is running;
     # folders are copied before the server is taken offline which shortens server downtime;
     OnlineCopyFolderPaths:

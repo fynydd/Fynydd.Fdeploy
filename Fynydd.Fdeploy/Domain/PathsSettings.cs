@@ -6,6 +6,7 @@ namespace Fynydd.Fdeploy.Domain;
 public sealed class PathsSettings
 {
     public string PublishPath { get; set; } = "bin/publish";
+
     public List<string> OnlineCopyFolderPaths { get; set; } = [];
     public List<string> OnlineCopyFilePaths { get; set; } = [];
 

@@ -2,7 +2,7 @@ GPLv3 LICENSE
 
 Fdeploy is a software tool for deploying files to a server.
 
-Copyright (c) 2025 Argentini Unlimited, Ltd
+Copyright (c) 2025 Fynydd LLC
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
